@@ -1,5 +1,5 @@
 <template>
-  <aside v-if="isVisible" class="sidebar">
+  <aside class="sidebar">
     <nav>
       <ul>
         <li v-for="item in menuItems" :key="item.name">
@@ -29,7 +29,7 @@ export default {
 
 <style scoped>
 .sidebar {
-  width: 250px;
+  width: 220px;
   background-color: #f4f4f4;
   padding: 20px;
   border-right: 1px solid #ddd;

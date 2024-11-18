@@ -12,6 +12,10 @@ export function addStudent(student) {
   return api.post('/students', student);
 }
 
+export function updateStudent(id, student) {
+  return api.put(`/students/${id}`, student);
+}
+
 export function deleteStudent(id) {
   return api.delete(`/students/${id}`);
 }
