@@ -114,8 +114,16 @@ th {
 }
 
 button {
-  margin-right: 5px;
-  padding: 5px 10px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  margin: 5px;
   cursor: pointer;
+  border-radius: 4px;
+}
+
+button:hover {
+  background-color: #0056b3;
 }
 </style>

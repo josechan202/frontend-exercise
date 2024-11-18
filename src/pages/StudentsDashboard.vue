@@ -7,7 +7,7 @@
       </header>
       <main class="dashboard-main">
         <AddStudent @add-student="addStudent" />
-        <StudentTable :students="students" @delete="deleteStudent" @edit="editStudent" />
+        <StudentTable :students="students" @delete-student="deleteStudent" @edit-student="editStudent" />
       </main>
     </div>
   </div>
@@ -51,7 +51,7 @@ export default {
     async deleteStudent(id) {
       try {
         await deleteStudent(id);
-        this.students = this.students.filter(student => student.id !== id);
+        this.students = this.students.filter((student) => student.id !== id);
       } catch (error) {
         console.error('Error deleting student:', error);
       }
@@ -59,7 +59,7 @@ export default {
     async addStudent(newStudent) {
       try {
         const response = await addStudent(newStudent);
-        this.students = response.data;
+        this.students.push(response.data);
       } catch (error) {
         console.error('Error adding students:', error);
       }
@@ -67,7 +67,13 @@ export default {
     async editStudent(updatedStudent) {
       try {
         const response = await updateStudent(updatedStudent);
-        this.students = response.data;
+        const index = this.students.findIndex((student) => student.id === updatedStudent.id);
+        if (index !== -1) {
+          // Merge existing student data with the updated data from the backend
+          this.students[index] = { ...this.students[index], ...response.data };
+        } else {
+          console.error('Student not found for editing:', updatedStudent.id);
+        }
       } catch (error) {
         console.error('Error editing students:', error);
       }

@@ -14,6 +14,15 @@
         <label for="age">Age</label>
         <input v-model="age" id="age" type="number" placeholder="Enter student age" required />
       </div>
+      <div class="form-group">
+        <label for="sexuality">Sexuality</label>
+        <select v-model="sexuality" id="sexuality" required>
+          <option value="" disabled>Select sexuality</option>
+          <option value="MALE">Male</option>
+          <option value="FEMALE">Female</option>
+          <option value="OTHER">Other</option>
+        </select>
+      </div>
       <button type="submit">Add Student</button>
     </form>
   </div>
@@ -27,16 +36,23 @@ export default {
       firstName: "",
       lastName: "",
       age: "",
+      sexuality: "",
     };
   },
   methods: {
     handleSubmit() {
       // Emit the new student data to the parent
-      if (this.firstName.trim() && this.lastName.trim() && this.age) {
-        this.$emit("add-student", { firstName: this.firstName, lastName: this.lastName, age: parseInt(this.age, 10) });
+      if (this.firstName.trim() && this.lastName.trim() && this.age && this.sexuality) {
+        this.$emit("add-student", {
+          firstName: this.firstName,
+          lastName: this.lastName,
+          age: parseInt(this.age, 10),
+          sexuality: this.sexuality,
+        });
         this.firstName = "";
         this.lastName = "";
         this.age = "";
+        this.sexuality = "";
       }
     },
   },
@@ -65,7 +81,8 @@ label {
   margin-bottom: 5px;
 }
 
-input {
+input,
+select {
   width: 100%;
   padding: 8px;
   border: 1px solid #ccc;

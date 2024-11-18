@@ -12,8 +12,8 @@ export function addStudent(student) {
   return api.post('/students', student);
 }
 
-export function updateStudent(id, student) {
-  return api.put(`/students/${id}`, student);
+export function updateStudent(student) {
+  return api.put(`/students/${student.id}`, student);
 }
 
 export function deleteStudent(id) {
