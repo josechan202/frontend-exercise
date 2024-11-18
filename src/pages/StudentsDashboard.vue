@@ -1,12 +1,12 @@
 <template>
   <div class="dashboard">
-    <Sidebar :menuItems="menuItems" :isVisible="isSidebarVisible" />
+    <Sidebar :menuItems="menuItems" :isVisible="isSidebarVisible" @menu-click="handleMenuClick" />
     <div :class="['dashboard-content', { 'expanded': !isSidebarVisible }]">
       <header class="dashboard-header">
         <h1>Student Management Dashboard</h1>
       </header>
       <main class="dashboard-main">
-        <AddStudent @add-student="addStudent" />
+        <AddStudent v-if="isAddStudentVisible" @add-student="addStudent" />
         <StudentTable :students="students" @delete-student="deleteStudent" @edit-student="editStudent" />
       </main>
     </div>
@@ -29,16 +29,24 @@ export default {
   data() {
     return {
       students: [],
-      menuItems: [
-        { name: 'Students', link: '#students' },
-        { name: 'Add Student', link: '#add-student' },
-      ],
       isSidebarVisible: true,
+      isAddStudentVisible: false,
+      menuItems: [
+        { name: "Students", link: "#students", id: "students" },
+        { name: "Add Student", link: "#add-student", id: "addStudent" },
+      ],
     };
   },
   methods: {
     toggleSidebar() {
       this.isSidebarVisible = !this.isSidebarVisible;
+    },
+    handleMenuClick(menuId) {
+      if (menuId === "addStudent") {
+        this.isAddStudentVisible = true;
+      } else {
+        this.isAddStudentVisible = false;
+      }
     },
     async loadStudents() {
       try {
@@ -91,45 +99,18 @@ export default {
   height: 100vh;
 }
 
-.dashboard-content {
-  margin-left: 250px; /* Default margin when sidebar is visible */
-  width: calc(100% - 250px); /* Adjust width when sidebar is visible */
-  display: flex;
-  flex-direction: column;
-  transition: margin-left 0.3s, width 0.3s;
-}
-
-.dashboard-content.expanded {
-  margin-left: 0; /* No margin when sidebar is hidden */
-  width: 100%; /* Full width when sidebar is hidden */
-}
-
 .dashboard-header {
   text-align: center;
   padding: 20px;
-  background-color: #f9f9f9;
-  border-bottom: 1px solid #ddd;
 }
 
-.sidebar-toggle {
-  position: absolute;
-  top: 20px;
-  left: 20px;
-  background-color: #007bff;
-  color: white;
-  border: none;
-  padding: 10px 15px;
-  cursor: pointer;
-  border-radius: 4px;
-}
-
-.sidebar-toggle:hover {
-  background-color: #0056b3;
-}
-
-.dashboard-main {
+.dashboard-content {
+  margin-left: 250px;
   flex: 1;
   padding: 20px;
-  overflow-y: auto;
+}
+
+.dashboard-content.expanded {
+  margin-left: 0;
 }
 </style>

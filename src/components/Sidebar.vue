@@ -2,8 +2,8 @@
   <aside class="sidebar">
     <nav>
       <ul>
-        <li v-for="item in menuItems" :key="item.name">
-          <a :href="item.link">{{ item.name }}</a>
+        <li v-for="item in menuItems" :key="item.id">
+          <a href="javascript:void(0)" @click="$emit('menu-click', item.id)">{{ item.name }}</a>
         </li>
       </ul>
     </nav>

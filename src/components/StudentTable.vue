@@ -25,7 +25,11 @@
             <input v-model="editedAge" type="number" />
           </td>
           <td>
-            <input v-model="editedSexuality" type="text" />
+            <select v-model="editedSexuality">
+              <option value="MALE">Male</option>
+              <option value="FEMALE">Female</option>
+              <option value="OTHER">Other</option>
+            </select>
           </td>
           <td>
             <button @click="saveEdit(student.id)">Save</button>
